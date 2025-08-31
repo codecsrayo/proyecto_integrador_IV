@@ -9,16 +9,16 @@
 
 WITH monthly_revenue AS (
     SELECT 
-        CAST(strftime('%m', o.order_purchase_timestamp) AS INTEGER) as month_no,
+        strftime('%m', o.order_purchase_timestamp) as month_no,
         CASE strftime('%m', o.order_purchase_timestamp)
-            WHEN '01' THEN 'Ene'
+            WHEN '01' THEN 'Jan'
             WHEN '02' THEN 'Feb'
             WHEN '03' THEN 'Mar'
-            WHEN '04' THEN 'Abr'
+            WHEN '04' THEN 'Apr'
             WHEN '05' THEN 'May'
             WHEN '06' THEN 'Jun'
             WHEN '07' THEN 'Jul'
-            WHEN '08' THEN 'Ago'
+            WHEN '08' THEN 'Aug'
             WHEN '09' THEN 'Sep'
             WHEN '10' THEN 'Oct'
             WHEN '11' THEN 'Nov'
@@ -39,18 +39,18 @@ SELECT
     COALESCE(r2017.revenue, 0.00) AS Year2017,
     COALESCE(r2018.revenue, 0.00) AS Year2018
 FROM (
-    SELECT 1 as month_no, 'Ene' as month
-    UNION SELECT 2, 'Feb'
-    UNION SELECT 3, 'Mar'
-    UNION SELECT 4, 'Abr'
-    UNION SELECT 5, 'May'
-    UNION SELECT 6, 'Jun'
-    UNION SELECT 7, 'Jul'
-    UNION SELECT 8, 'Ago'
-    UNION SELECT 9, 'Sep'
-    UNION SELECT 10, 'Oct'
-    UNION SELECT 11, 'Nov'
-    UNION SELECT 12, 'Dec'
+    SELECT '01' as month_no, 'Jan' as month
+    UNION SELECT '02', 'Feb'
+    UNION SELECT '03', 'Mar'
+    UNION SELECT '04', 'Apr'
+    UNION SELECT '05', 'May'
+    UNION SELECT '06', 'Jun'
+    UNION SELECT '07', 'Jul'
+    UNION SELECT '08', 'Aug'
+    UNION SELECT '09', 'Sep'
+    UNION SELECT '10', 'Oct'
+    UNION SELECT '11', 'Nov'
+    UNION SELECT '12', 'Dec'
 ) m
 LEFT JOIN (SELECT month_no, revenue FROM monthly_revenue WHERE year = '2016') r2016 ON m.month_no = r2016.month_no
 LEFT JOIN (SELECT month_no, revenue FROM monthly_revenue WHERE year = '2017') r2017 ON m.month_no = r2017.month_no

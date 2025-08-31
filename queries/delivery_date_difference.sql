@@ -13,12 +13,11 @@
 
 
 SELECT 
-    customer_state AS Estado,
-    CAST(AVG(julianday(order_delivered_customer_date) - julianday(order_estimated_delivery_date)) AS INTEGER) AS Diferencia_Entrega
+    c.customer_state AS State,
+    CAST(AVG(julianday(STRFTIME('%Y-%m-%d', o.order_estimated_delivery_date)) - julianday(STRFTIME('%Y-%m-%d', o.order_delivered_customer_date))) AS INTEGER) AS Delivery_Difference
 FROM olist_orders o
 JOIN olist_customers c ON o.customer_id = c.customer_id
-WHERE order_status = 'delivered' 
-    AND order_delivered_customer_date IS NOT NULL
-    AND order_estimated_delivery_date IS NOT NULL
-GROUP BY customer_state
-ORDER BY customer_state;
+WHERE o.order_status = 'delivered' 
+    AND o.order_delivered_customer_date IS NOT NULL
+GROUP BY c.customer_state
+ORDER BY Delivery_Difference, State;

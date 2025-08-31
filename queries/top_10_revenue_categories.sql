@@ -7,17 +7,25 @@
 -- PISTA: Todos los pedidos deben tener un estado 'delivered' y tanto la categoría
 -- como la fecha real de entrega no deben ser nulas.
 
-SELECT 
-    t.product_category_name_english AS Category,
+SELECT
+    pcnt.product_category_name_english AS Category,
     COUNT(DISTINCT o.order_id) AS Num_order,
-    ROUND(SUM(oi.price + COALESCE(oi.freight_value, 0)), 2) AS Revenue
-FROM olist_orders o
-JOIN olist_order_items oi ON o.order_id = oi.order_id
-JOIN olist_products p ON oi.product_id = p.product_id
-JOIN product_category_name_translation t ON p.product_category_name = t.product_category_name
-WHERE o.order_status = 'delivered' 
+    SUM(op.payment_value) AS Revenue
+FROM
+    olist_orders o
+JOIN
+    olist_order_items oi ON o.order_id = oi.order_id
+JOIN
+    olist_products p ON oi.product_id = p.product_id
+JOIN
+    product_category_name_translation pcnt ON p.product_category_name = pcnt.product_category_name
+JOIN
+    olist_order_payments op ON o.order_id = op.order_id
+WHERE
+    o.order_status = 'delivered'
     AND o.order_delivered_customer_date IS NOT NULL
-    AND t.product_category_name_english IS NOT NULL
-GROUP BY t.product_category_name_english
-ORDER BY Revenue DESC
+GROUP BY
+    Category
+ORDER BY
+    Revenue DESC
 LIMIT 10;

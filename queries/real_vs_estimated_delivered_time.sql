@@ -17,17 +17,17 @@
 -- 3. Considera tomar order_id distintos.
 
 WITH monthly_delivery_times AS (
-    SELECT 
-        CAST(strftime('%m', order_purchase_timestamp) AS INTEGER) as month_no,
+    SELECT
+        strftime('%m', order_purchase_timestamp) as month_no,
         CASE strftime('%m', order_purchase_timestamp)
-            WHEN '01' THEN 'Ene'
+            WHEN '01' THEN 'Jan'
             WHEN '02' THEN 'Feb'
             WHEN '03' THEN 'Mar'
-            WHEN '04' THEN 'Abr'
+            WHEN '04' THEN 'Apr'
             WHEN '05' THEN 'May'
             WHEN '06' THEN 'Jun'
             WHEN '07' THEN 'Jul'
-            WHEN '08' THEN 'Ago'
+            WHEN '08' THEN 'Aug'
             WHEN '09' THEN 'Sep'
             WHEN '10' THEN 'Oct'
             WHEN '11' THEN 'Nov'
@@ -46,12 +46,12 @@ WITH monthly_delivery_times AS (
 SELECT 
     m.month_no,
     m.month,
-    COALESCE(rt2016.real_time, 'NaN') AS Year2016_real_time,
-    COALESCE(rt2017.real_time, 'NaN') AS Year2017_real_time,
-    COALESCE(rt2018.real_time, 'NaN') AS Year2018_real_time,
-    COALESCE(et2016.estimated_time, 'NaN') AS Year2016_estimated_time,
-    COALESCE(et2017.estimated_time, 'NaN') AS Year2017_estimated_time,
-    COALESCE(et2018.estimated_time, 'NaN') AS Year2018_estimated_time
+    COALESCE(rt2016.real_time, NULL) AS Year2016_real_time,
+    COALESCE(rt2017.real_time, NULL) AS Year2017_real_time,
+    COALESCE(rt2018.real_time, NULL) AS Year2018_real_time,
+    COALESCE(et2016.estimated_time, NULL) AS Year2016_estimated_time,
+    COALESCE(et2017.estimated_time, NULL) AS Year2017_estimated_time,
+    COALESCE(et2018.estimated_time, NULL) AS Year2018_estimated_time
 FROM (
     SELECT DISTINCT month_no, month FROM monthly_delivery_times
 ) m

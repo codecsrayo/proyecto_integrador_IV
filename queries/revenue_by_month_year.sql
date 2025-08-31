@@ -7,8 +7,15 @@
 -- Year2018, con los ingresos por mes de 2018 (0.00 si no existe).
 
 
-WITH monthly_revenue AS (
-    SELECT 
+WITH order_payments_sum AS (
+    SELECT
+        order_id,
+        SUM(payment_value) as total_payment
+    FROM olist_order_payments
+    GROUP BY order_id
+),
+monthly_revenue AS (
+    SELECT
         strftime('%m', o.order_purchase_timestamp) as month_no,
         CASE strftime('%m', o.order_purchase_timestamp)
             WHEN '01' THEN 'Jan'
@@ -25,9 +32,9 @@ WITH monthly_revenue AS (
             WHEN '12' THEN 'Dec'
         END as month,
         strftime('%Y', o.order_purchase_timestamp) as year,
-        SUM(oi.price + COALESCE(oi.freight_value, 0)) as revenue
+        SUM(ops.total_payment) as revenue
     FROM olist_orders o
-    JOIN olist_order_items oi ON o.order_id = oi.order_id
+    JOIN order_payments_sum ops ON o.order_id = ops.order_id
     WHERE strftime('%Y', o.order_purchase_timestamp) IN ('2016', '2017', '2018')
         AND o.order_status NOT IN ('canceled', 'unavailable')
     GROUP BY month_no, year

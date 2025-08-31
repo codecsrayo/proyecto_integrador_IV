@@ -1,7 +1,10 @@
+"""Module for extracting data from various sources."""
+
 from typing import Dict
 
 import requests
 from pandas import DataFrame, read_csv, read_json, to_datetime
+
 
 def temp() -> DataFrame:
     """Get the temperature data.
@@ -9,6 +12,7 @@ def temp() -> DataFrame:
         DataFrame: A dataframe with the temperature data.
     """
     return read_csv("data/temperature.csv")
+
 
 def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     """Get the public holidays for the given year for Brazil.
@@ -20,7 +24,7 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     Returns:
         DataFrame: A dataframe with the public holidays.
     """
-    # TODO: Implementa esta función.
+    # Implementa esta función.
     # Debes usar la biblioteca requests para obtener los días festivos públicos del año dado.
     # La URL es public_holidays_url/{year}/BR.
     # Debes eliminar las columnas "types" y "counties" del DataFrame.
@@ -28,7 +32,36 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     # Debes lanzar SystemExit si la solicitud falla. Investiga el método raise_for_status
     # de la biblioteca requests.
 
-    raise NotImplementedError
+    try:
+        # Construct the URL for the specific year and country (Brazil)
+        url = f"{public_holidays_url}/{year}/BR"
+
+        # Make the HTTP request
+        response = requests.get(url)
+
+        # Check if the request was successful, raise exception if not
+        response.raise_for_status()
+
+        # Convert the JSON response to a DataFrame
+        holidays_df = DataFrame(response.json())
+
+        # Remove the "types" and "counties" columns if they exist
+        columns_to_drop = ["types", "counties"]
+        existing_columns_to_drop = [
+            col for col in columns_to_drop if col in holidays_df.columns
+        ]
+        if existing_columns_to_drop:
+            holidays_df = holidays_df.drop(columns=existing_columns_to_drop)
+
+        # Convert the "date" column to datetime
+        if "date" in holidays_df.columns:
+            holidays_df["date"] = to_datetime(holidays_df["date"])
+
+        return holidays_df
+
+    except requests.RequestException as e:
+        # If any request-related error occurs, raise SystemExit
+        raise SystemExit(f"Failed to fetch public holidays: {e}") from e
 
 
 def extract(

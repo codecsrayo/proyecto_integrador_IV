@@ -1,9 +1,12 @@
-import matplotlib
-import matplotlib.pyplot as plt
+"""Module for plotting data visualizations."""
 
+import matplotlib
+import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
+import pandas as pd
 import plotly.express as px
 import seaborn as sns
-
+from matplotlib.patches import Circle
 from pandas import DataFrame
 
 
@@ -19,7 +22,7 @@ def plot_revenue_by_month_year(df: DataFrame, year: int):
 
     _, ax1 = plt.subplots(figsize=(12, 6))
 
-    sns.lineplot(data=df[f"Year{year}"], marker="o", sort=False, ax=ax1)
+    sns.lineplot(data=df, y=f"Year{year}", marker="o", sort=False, ax=ax1)
     ax2 = ax1.twinx()
 
     sns.barplot(data=df, x="month", y=f"Year{year}", alpha=0.5, ax=ax2)
@@ -41,10 +44,10 @@ def plot_real_vs_predicted_delivered_time(df: DataFrame, year: int):
 
     _, ax1 = plt.subplots(figsize=(12, 6))
 
-    sns.lineplot(data=df[f"Year{year}_real_time"], marker="o", sort=False, ax=ax1)
+    sns.lineplot(data=df, y=f"Year{year}_real_time", marker="o", sort=False, ax=ax1)
     ax1.twinx()
     g = sns.lineplot(
-        data=df[f"Year{year}_estimated_time"], marker="o", sort=False, ax=ax1
+        data=df, y=f"Year{year}_estimated_time", marker="o", sort=False, ax=ax1
     )
     g.set_xticks(range(len(df)))
     g.set_xticklabels(df.month.values)
@@ -65,7 +68,7 @@ def plot_global_amount_order_status(df: DataFrame):
 
     elements = [x.split()[-1] for x in df["order_status"]]
 
-    wedges, autotexts = ax.pie(df["Ammount"], textprops=dict(color="w"))
+    wedges, autotexts, _ = ax.pie(df["Ammount"], textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -79,7 +82,7 @@ def plot_global_amount_order_status(df: DataFrame):
 
     ax.set_title("Order Status Total")
 
-    my_circle = plt.Circle((0, 0), 0.7, color="white")
+    my_circle = Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
@@ -110,7 +113,7 @@ def plot_top_10_least_revenue_categories(df: DataFrame):
     elements = [x.split()[-1] for x in df["Category"]]
 
     revenue = df["Revenue"]
-    wedges, autotexts = ax.pie(revenue, textprops=dict(color="w"))
+    wedges, autotexts, _ = ax.pie(revenue, textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -121,7 +124,7 @@ def plot_top_10_least_revenue_categories(df: DataFrame):
     )
 
     plt.setp(autotexts, size=8, weight="bold")
-    my_circle = plt.Circle((0, 0), 0.7, color="white")
+    my_circle = Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
@@ -142,7 +145,7 @@ def plot_top_10_revenue_categories_ammount(df: DataFrame):
     elements = [x.split()[-1] for x in df["Category"]]
 
     revenue = df["Revenue"]
-    wedges, autotexts = ax.pie(revenue, textprops=dict(color="w"))
+    wedges, autotexts, _ = ax.pie(revenue, textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -153,7 +156,7 @@ def plot_top_10_revenue_categories_ammount(df: DataFrame):
     )
 
     plt.setp(autotexts, size=8, weight="bold")
-    my_circle = plt.Circle((0, 0), 0.7, color="white")
+    my_circle = Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
@@ -179,10 +182,16 @@ def plot_freight_value_weight_relationship(df: DataFrame):
     Args:
         df (DataFrame): Dataframe with freight value weight relationship query result
     """
-    # TODO: Representar gráficamente la relación entre el valor del flete y el peso usando un scatterplot de seaborn.
+    # Representar gráficamente la relación entre el valor del flete y el peso
+    # usando un scatterplot de seaborn.
     # El eje x debe ser el peso (weight) y el eje y debe ser el valor del flete (freight value).
 
-    raise NotImplementedError
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(data=df, x="product_weight_g", y="freight_value", alpha=0.6)
+    plt.title("Relationship between Product Weight and Freight Value")
+    plt.xlabel("Product Weight (grams)")
+    plt.ylabel("Freight Value")
+    plt.show()
 
 
 def plot_delivery_date_difference(df: DataFrame):
@@ -202,8 +211,32 @@ def plot_order_amount_per_day_with_holidays(df: DataFrame):
     Args:
         df (DataFrame): Dataframe with order amount per day with holidays query result
     """
-    # TODO: Graficar el monto de pedidos por día con los días festivos usando matplotlib.
+    # Graficar el monto de pedidos por día con los días festivos usando matplotlib.
     # Marcar los días festivos con líneas verticales.
     # Sugerencia: usar plt.axvline.
 
-    raise NotImplementedError
+    plt.figure(figsize=(15, 6))
+
+    # Convert date column to datetime for proper plotting
+    df["date"] = pd.to_datetime(df["date"])
+
+    # Plot order count over time
+    plt.plot(df["date"], df["order_count"], "b-", linewidth=1, alpha=0.7)
+
+    # Mark holidays with vertical lines
+    holidays = df[df["holiday"]]
+    for holiday_date in holidays["date"]:
+        plt.axvline(x=holiday_date, color="red", linestyle="--", alpha=0.7, linewidth=1)
+
+    plt.title("Order Amount per Day with Holidays (2017)")
+    plt.xlabel("Date")
+    plt.ylabel("Number of Orders")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Add legend
+    holiday_line = mlines.Line2D([], [], color="red", linestyle="--", label="Holidays")
+    order_line = mlines.Line2D([], [], color="blue", linestyle="-", label="Orders")
+    plt.legend(handles=[order_line, holiday_line])
+
+    plt.show()

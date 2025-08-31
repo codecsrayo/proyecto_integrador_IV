@@ -1,25 +1,33 @@
-import pandas as pd
-from pytest import fixture
-from src.config import QUERY_RESULTS_ROOT_PATH, DATASET_ROOT_PATH, PUBLIC_HOLIDAYS_URL
-from sqlalchemy import create_engine
-from sqlalchemy.engine.base import Engine
+"test_transform.py"
+
 import json
 import math
+
+import pandas as pd
+from pytest import fixture
+from sqlalchemy import create_engine
+from sqlalchemy.engine.base import Engine
+
+from src.config import (
+    DATASET_ROOT_PATH,
+    PUBLIC_HOLIDAYS_URL,
+    QUERY_RESULTS_ROOT_PATH,
+    get_csv_to_table_mapping,
+)
+from src.extract import extract
+from src.load import load
 from src.transform import (
+    QueryResult,
     query_delivery_date_difference,
+    query_freight_value_weight_relationship,
     query_global_ammount_order_status,
+    query_orders_per_day_and_holidays_2017,
+    query_real_vs_estimated_delivered_time,
     query_revenue_by_month_year,
     query_revenue_per_state,
     query_top_10_least_revenue_categories,
     query_top_10_revenue_categories,
-    query_real_vs_estimated_delivered_time,
-    query_orders_per_day_and_holidays_2017,
-    query_freight_value_weight_relationship,
 )
-from src.load import load
-from src.extract import extract
-from src.config import get_csv_to_table_mapping
-from src.transform import QueryResult
 
 TOLERANCE = 0.1
 
@@ -197,6 +205,13 @@ def test_real_vs_estimated_delivered_time(database: Engine):
 def test_query_orders_per_day_and_holidays_2017(database: Engine):
     query_name = "orders_per_day_and_holidays_2017"
     actual: QueryResult = query_orders_per_day_and_holidays_2017(database)
+    expected = read_query_result(query_name)
+    assert pandas_to_json_object(actual.result) == expected
+
+
+def test_query_get_freight_value_weight_relationship(database: Engine):
+    query_name = "get_freight_value_weight_relationship"
+    actual: QueryResult = query_freight_value_weight_relationship(database)
     expected = read_query_result(query_name)
     assert pandas_to_json_object(actual.result) == expected
 

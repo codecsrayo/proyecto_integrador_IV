@@ -27,3 +27,4 @@ def test_extract():
     assert dataframes["olist_products"].shape == (32951, 9)
     assert dataframes["olist_sellers"].shape == (3095, 4)
     assert dataframes["product_category_name_translation"].shape == (71, 2)
+    assert dataframes["product_category_name_translation"].shape == (71, 2)

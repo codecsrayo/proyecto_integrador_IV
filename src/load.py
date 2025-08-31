@@ -6,7 +6,7 @@ from pandas import DataFrame
 from sqlalchemy.engine.base import Engine
 
 
-def load(data_frames: Dict[str, DataFrame], database: Engine):
+def load(data_frames: Dict[str, DataFrame], database: Engine, if_exists: str = "replace"):
     """Load the dataframes into the sqlite database.
 
     Args:
@@ -20,6 +20,7 @@ def load(data_frames: Dict[str, DataFrame], database: Engine):
     # Para el nombre de la tabla, utiliza las claves del diccionario `data_frames`.
 
     for table_name, dataframe in data_frames.items():
+        print(f"table: {table_name}, rows: {dataframe.count()}")
         dataframe.to_sql(
-            name=table_name, con=database, if_exists="replace", index=False
+            name=table_name, con=database, if_exists=if_exists, index=False
         )

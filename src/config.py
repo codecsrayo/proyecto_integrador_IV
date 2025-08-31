@@ -25,9 +25,6 @@ def get_csv_to_table_mapping() -> Dict[str, str]:
             ("olist_orders_dataset.csv", "olist_orders"),
             ("olist_products_dataset.csv", "olist_products"),
             ("olist_sellers_dataset.csv", "olist_sellers"),
-            (
-                "product_category_name_translation.csv",
-                "product_category_name_translation",
-            ),
+            ("product_category_name_translation.csv", "product_category_name_translation"),
         ]
     )

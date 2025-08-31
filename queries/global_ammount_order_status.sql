@@ -1,3 +1,11 @@
+-- Active: 1756671622742@@127.0.0.1@3306
+-- global_ammount_order_status.sql
 -- TODO: Esta consulta devolverá una tabla con dos columnas: estado_pedido y
 -- Cantidad. La primera contendrá las diferentes clases de estado de los pedidos,
 -- y la segunda mostrará el total de cada uno.
+SELECT 
+    order_status AS estado_pedido,
+    COUNT(*) AS Cantidad
+FROM olist_orders
+GROUP BY order_status
+ORDER BY Cantidad DESC;

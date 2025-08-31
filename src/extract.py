@@ -6,14 +6,6 @@ import requests
 from pandas import DataFrame, read_csv, read_json, to_datetime
 
 
-def temp() -> DataFrame:
-    """Get the temperature data.
-    Returns:
-        DataFrame: A dataframe with the temperature data.
-    """
-    return read_csv("data/temperature.csv")
-
-
 def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     """Get the public holidays for the given year for Brazil.
     Args:

@@ -1,14 +1,12 @@
-"""Module for plotting data visualizations."""
-
 import matplotlib
-import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
-import pandas as pd
+
 import plotly.express as px
 import seaborn as sns
-from matplotlib.patches import Circle
-from pandas import DataFrame
 
+from pandas import DataFrame
+import pandas as pd
+import matplotlib.lines as mlines
 
 def plot_revenue_by_month_year(df: DataFrame, year: int):
     """Plot revenue by month in a given year
@@ -22,7 +20,7 @@ def plot_revenue_by_month_year(df: DataFrame, year: int):
 
     _, ax1 = plt.subplots(figsize=(12, 6))
 
-    sns.lineplot(data=df, y=f"Year{year}", marker="o", sort=False, ax=ax1)
+    sns.lineplot(data=df[f"Year{year}"], marker="o", sort=False, ax=ax1)
     ax2 = ax1.twinx()
 
     sns.barplot(data=df, x="month", y=f"Year{year}", alpha=0.5, ax=ax2)
@@ -44,10 +42,10 @@ def plot_real_vs_predicted_delivered_time(df: DataFrame, year: int):
 
     _, ax1 = plt.subplots(figsize=(12, 6))
 
-    sns.lineplot(data=df, y=f"Year{year}_real_time", marker="o", sort=False, ax=ax1)
+    sns.lineplot(data=df[f"Year{year}_real_time"], marker="o", sort=False, ax=ax1)
     ax1.twinx()
     g = sns.lineplot(
-        data=df, y=f"Year{year}_estimated_time", marker="o", sort=False, ax=ax1
+        data=df[f"Year{year}_estimated_time"], marker="o", sort=False, ax=ax1
     )
     g.set_xticks(range(len(df)))
     g.set_xticklabels(df.month.values)
@@ -68,7 +66,7 @@ def plot_global_amount_order_status(df: DataFrame):
 
     elements = [x.split()[-1] for x in df["order_status"]]
 
-    wedges, autotexts, _ = ax.pie(df["Ammount"], textprops=dict(color="w"))
+    wedges, autotexts = ax.pie(df["Ammount"], textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -82,7 +80,7 @@ def plot_global_amount_order_status(df: DataFrame):
 
     ax.set_title("Order Status Total")
 
-    my_circle = Circle((0, 0), 0.7, color="white")
+    my_circle = plt.Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
@@ -113,7 +111,7 @@ def plot_top_10_least_revenue_categories(df: DataFrame):
     elements = [x.split()[-1] for x in df["Category"]]
 
     revenue = df["Revenue"]
-    wedges, autotexts, _ = ax.pie(revenue, textprops=dict(color="w"))
+    wedges, autotexts = ax.pie(revenue, textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -124,7 +122,7 @@ def plot_top_10_least_revenue_categories(df: DataFrame):
     )
 
     plt.setp(autotexts, size=8, weight="bold")
-    my_circle = Circle((0, 0), 0.7, color="white")
+    my_circle = plt.Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 
@@ -145,7 +143,7 @@ def plot_top_10_revenue_categories_ammount(df: DataFrame):
     elements = [x.split()[-1] for x in df["Category"]]
 
     revenue = df["Revenue"]
-    wedges, autotexts, _ = ax.pie(revenue, textprops=dict(color="w"))
+    wedges, autotexts = ax.pie(revenue, textprops=dict(color="w"))
 
     ax.legend(
         wedges,
@@ -156,7 +154,7 @@ def plot_top_10_revenue_categories_ammount(df: DataFrame):
     )
 
     plt.setp(autotexts, size=8, weight="bold")
-    my_circle = Circle((0, 0), 0.7, color="white")
+    my_circle = plt.Circle((0, 0), 0.7, color="white")
     p = plt.gcf()
     p.gca().add_artist(my_circle)
 

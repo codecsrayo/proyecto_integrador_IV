@@ -9,3 +9,8 @@ wheels/
 # Virtual environments
 .venv
 olist.db
+
+# Airflow
+
+
+.airflow/airflow/logs/*

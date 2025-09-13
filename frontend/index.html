@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Análisis E-commerce Olist</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> Análisis E-commerce Olist</h1>
+                <p>Análisis integral de ingresos y rendimiento de entregas</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('revenue')">
+                <i class="fas fa-dollar-sign"></i> Análisis de Ingresos
+            </button>
+            <button class="tab-btn" onclick="showTab('delivery')">
+                <i class="fas fa-truck"></i> Rendimiento de Entregas
+            </button>
+            <button class="tab-btn" onclick="showTab('categories')">
+                <i class="fas fa-tags"></i> Categorías de Productos
+            </button>
+            <button class="tab-btn" onclick="showTab('orders')">
+                <i class="fas fa-shopping-cart"></i> Estado de Pedidos
+            </button>
+        </nav>
+
+        <!-- Revenue Tab -->
+        <div id="revenue" class="tab-content active">
+            <div class="section-header">
+                <h2><i class="fas fa-dollar-sign"></i> Análisis de Ingresos</h2>
+                <p>Tendencias mensuales de ingresos y rendimiento por estado</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Ingresos Mensuales por Año</h3>
+                    <canvas id="monthlyRevenueChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Top 10 Estados por Ingresos</h3>
+                    <canvas id="stateRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <h3>Ingresos por Mes y Año</h3>
+                <div class="table-wrapper">
+                    <table id="revenueTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>2016</th>
+                                <th>2017</th>
+                                <th>2018</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Tab -->
+        <div id="delivery" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-truck"></i> Rendimiento de Entregas</h2>
+                <p>Análisis de tiempos de entrega y métricas de rendimiento</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Diferencia de Fecha de Entrega por Estado</h3>
+                    <canvas id="deliveryDifferenceChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Tiempo Real vs Estimado de Entrega (2017)</h3>
+                    <canvas id="deliveryTimeChart"></canvas>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <h3>Rendimiento de Entregas por Estado</h3>
+                <div class="table-wrapper">
+                    <table id="deliveryTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Estado</th>
+                                <th>Diferencia Promedio de Entrega (días)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Tab -->
+        <div id="categories" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-tags"></i> Categorías de Productos</h2>
+                <p>Categorías de productos con mejor y peor rendimiento</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Top 10 Categorías por Ingresos</h3>
+                    <canvas id="topCategoriesChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>10 Categorías con Menores Ingresos</h3>
+                    <canvas id="bottomCategoriesChart"></canvas>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Mejores Categorías</h4>
+                    <div id="topCategoriesStats"></div>
+                </div>
+                <div class="stat-card">
+                    <h4>Categorías Menores</h4>
+                    <div id="bottomCategoriesStats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-shopping-cart"></i> Estado de Pedidos</h2>
+                <p>Distribución de estados de pedidos en la plataforma</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Distribución de Estados de Pedidos</h3>
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Desglose de Estados de Pedidos</h3>
+                    <canvas id="orderStatusBarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="data-table-container">
+                <h3>Resumen de Estados de Pedidos</h3>
+                <div class="table-wrapper">
+                    <table id="orderStatusTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Estado</th>
+                                <th>Cantidad</th>
+                                <th>Porcentaje</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Cargando datos de análisis...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+[
+  {
+    "month_no": "01",
+    "month": "Jan",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 12.647043518523995,
+    "Year2018_real_time": 14.080562613954013,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 39.508831018518656,
+    "Year2018_estimated_time": 26.302555420969608
+  },
+  {
+    "month_no": "02",
+    "month": "Feb",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 13.168825248991016,
+    "Year2018_real_time": 16.94513756815219,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 31.848929478673075,
+    "Year2018_estimated_time": 24.528996050157986
+  },
+  {
+    "month_no": "03",
+    "month": "Mar",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 12.951184487834322,
+    "Year2018_real_time": 16.30141017440915,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 24.73238647770073,
+    "Year2018_estimated_time": 22.033066807345808
+  },
+  {
+    "month_no": "04",
+    "month": "Apr",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 14.917912500404764,
+    "Year2018_real_time": 11.499241053674409,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 27.349810201268888,
+    "Year2018_estimated_time": 23.679546414797294
+  },
+  {
+    "month_no": "05",
+    "month": "May",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 11.322362975370565,
+    "Year2018_real_time": 11.419028935355149,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 24.28478355338818,
+    "Year2018_estimated_time": 22.89148826574997
+  },
+  {
+    "month_no": "06",
+    "month": "Jun",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 12.011572704384433,
+    "Year2018_real_time": 9.239216293164453,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 24.02186440796661,
+    "Year2018_estimated_time": 27.772740093685073
+  },
+  {
+    "month_no": "07",
+    "month": "Jul",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 11.592732387196564,
+    "Year2018_real_time": 8.958636237156037,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 23.317316061296125,
+    "Year2018_estimated_time": 19.69012653080075
+  },
+  {
+    "month_no": "08",
+    "month": "Aug",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 11.147124655509886,
+    "Year2018_real_time": 7.732779720462545,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 23.480602743439714,
+    "Year2018_estimated_time": 15.186330203906536
+  },
+  {
+    "month_no": "09",
+    "month": "Sep",
+    "Year2016_real_time": 54.81319444440305,
+    "Year2017_real_time": 11.851006528897189,
+    "Year2018_real_time": null,
+    "Year2016_estimated_time": 18.488449073862284,
+    "Year2017_estimated_time": 22.437366334786525,
+    "Year2018_estimated_time": null
+  },
+  {
+    "month_no": "10",
+    "month": "Oct",
+    "Year2016_real_time": 19.600558787545648,
+    "Year2017_real_time": 11.856699698524157,
+    "Year2018_real_time": null,
+    "Year2016_estimated_time": 55.676631988103516,
+    "Year2017_estimated_time": 23.019535817078935,
+    "Year2018_estimated_time": null
+  },
+  {
+    "month_no": "11",
+    "month": "Nov",
+    "Year2016_real_time": null,
+    "Year2017_real_time": 15.161131699240915,
+    "Year2018_real_time": null,
+    "Year2016_estimated_time": null,
+    "Year2017_estimated_time": 22.560752014663407,
+    "Year2018_estimated_time": null
+  },
+  {
+    "month_no": "12",
+    "month": "Dec",
+    "Year2016_real_time": 4.693020833656192,
+    "Year2017_real_time": 15.39491853010823,
+    "Year2018_real_time": null,
+    "Year2016_estimated_time": 26.030011574272066,
+    "Year2017_estimated_time": 27.681339964125648,
+    "Year2018_estimated_time": null
+  }
+]

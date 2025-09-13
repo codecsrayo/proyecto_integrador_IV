@@ -1,0 +1,42 @@
+[
+  {
+    "customer_state": "SP",
+    "Revenue": 5769081.27
+  },
+  {
+    "customer_state": "RJ",
+    "Revenue": 2055690.45
+  },
+  {
+    "customer_state": "MG",
+    "Revenue": 1819277.61
+  },
+  {
+    "customer_state": "RS",
+    "Revenue": 861608.4
+  },
+  {
+    "customer_state": "PR",
+    "Revenue": 781919.55
+  },
+  {
+    "customer_state": "SC",
+    "Revenue": 595208.4
+  },
+  {
+    "customer_state": "BA",
+    "Revenue": 591270.6
+  },
+  {
+    "customer_state": "DF",
+    "Revenue": 346146.17
+  },
+  {
+    "customer_state": "GO",
+    "Revenue": 334294.22
+  },
+  {
+    "customer_state": "ES",
+    "Revenue": 317682.65
+  }
+]

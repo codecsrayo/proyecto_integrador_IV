@@ -1,0 +1,37 @@
+{
+  "revenue_by_month_year.sql": {
+    "status": "success",
+    "rows": 12,
+    "output_file": "frontend/data/revenue_by_month_year.json"
+  },
+  "revenue_per_state.sql": {
+    "status": "success",
+    "rows": 10,
+    "output_file": "frontend/data/revenue_per_state.json"
+  },
+  "top_10_revenue_categories.sql": {
+    "status": "success",
+    "rows": 10,
+    "output_file": "frontend/data/top_10_revenue_categories.json"
+  },
+  "top_10_least_revenue_categories.sql": {
+    "status": "success",
+    "rows": 10,
+    "output_file": "frontend/data/top_10_least_revenue_categories.json"
+  },
+  "delivery_date_difference.sql": {
+    "status": "success",
+    "rows": 27,
+    "output_file": "frontend/data/delivery_date_difference.json"
+  },
+  "real_vs_estimated_delivered_time.sql": {
+    "status": "success",
+    "rows": 12,
+    "output_file": "frontend/data/real_vs_estimated_delivered_time.json"
+  },
+  "global_ammount_order_status.sql": {
+    "status": "success",
+    "rows": 8,
+    "output_file": "frontend/data/global_ammount_order_status.json"
+  }
+}
